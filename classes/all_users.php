@@ -31,7 +31,7 @@ class all_users extends table_sql {
         // Define the titles of columns to show in header.
         $headers = array(
             '',
-            'Auto<br />Connect',
+            'Info',
             get_string('institution', 'mod_booking'),
             get_string('fullname', 'mod_booking'),
             get_string('timecreated', 'mod_booking')
@@ -60,7 +60,7 @@ class all_users extends table_sql {
     }
 
     function col_fullname($values) {
-            return "{$values->firstname} {$values->lastname}";
+        return html_writer::link(new moodle_url('/user/profile.php', array('id' => $values->id)), "{$values->firstname} {$values->lastname}", array('target' => '_blank'));
         }
     
     function col_info($values) {
