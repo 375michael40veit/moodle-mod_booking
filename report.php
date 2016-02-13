@@ -251,8 +251,7 @@ if (!$download) {
                 if (count($allSelectedUsers) > $bookingData->calculateHowManyCanBookToOther($_POST['selectoptionid'])) {
                     redirect($url, get_string('toomuchusersbooked', 'booking', $bookingData->calculateHowManyCanBookToOther($_POST['selectoptionid'])), 5);
                 }   
-            }
-            else if ($bookingData->option->connectedform == 1) {
+            } else if ($bookingData->option->connectedform == 1) {
             if (count($allSelectedUsers) > $bookingData->canBookToOtherBooking) {
                 redirect($url, get_string('toomuchusersbooked', 'booking', $bookingData->canBookToOtherBooking), 5);
             }
@@ -262,8 +261,7 @@ if (!$download) {
             
             if ($bookingData->option->connectedform == 0) {
                 $tmpBooking = new booking_option($tmpcmid->id, $_POST['selectoptionid']);
-            }
-            else if ($bookingData->option->connectedform == 1) {
+            } else if ($bookingData->option->connectedform == 1) {
             $tmpBooking = new booking_option($tmpcmid->id, $bookingData->option->conectedoption);
             }
 
@@ -273,16 +271,14 @@ if (!$download) {
                 
                 if ($bookingData->option->connectedform == 0) {
                     $tmpBooking->user_submit_response($user, $optionid);
-                }
-                else if ($bookingData->option->connectedform == 1) {    
+                } else if ($bookingData->option->connectedform == 1) {
                 $tmpBooking->user_submit_response($user);
             }
             }
 
             if ($bookingData->option->connectedform == 0) {
                 redirect($url, get_string('userssucesfullybooked', 'booking', $bookingData->calculateHowManyCanBookToOther($_POST['selectoptionid'])), 5);
-            }
-            else if ($bookingData->option->connectedform == 1) {
+            } else if ($bookingData->option->connectedform == 1) {
             redirect($url, get_string('userssucesfullybooked', 'booking', $bookingData->canBookToOtherBooking), 5);
         }
     }
@@ -294,19 +290,18 @@ if (!$download) {
 
     if ($bookingData->option->connectedform == 0) {
         $fields = 'u.id, ' . get_all_user_name_fields(true, 'u') . ', u.username, u.firstname, u.lastname, u.institution, ba.completed, ba.timecreated, ba.userid, (SELECT 
-               GROUP_CONCAT(obo.text SEPARATOR \', \')
+               GROUP_CONCAT(obo.text SEPARATOR \',<br />&nbsp;&nbsp;&nbsp;&nbsp;\')
             FROM
                 {booking_answers} AS oba
                 LEFT JOIN {booking_options} AS obo ON obo.id = oba.optionid
             WHERE
                 oba.frombookingid = ba.optionid
                     AND oba.userid = ba.userid) AS otheroptions';
-    }
-    else if ($bookingData->option->connectedform == 1) {
+    } else if ($bookingData->option->connectedform == 1) {
         $fields = 'u.id, ' . get_all_user_name_fields(true, 'u') . ', u.username, u.firstname, u.lastname, u.institution, ba.completed, ba.timecreated, ba.userid, 
             IF(bo.conectedoption > 0, 
             (SELECT 
-                GROUP_CONCAT(obo.text SEPARATOR \', \') 
+                GROUP_CONCAT(obo.text SEPARATOR \',<br />&nbsp;&nbsp;&nbsp;&nbsp;\') 
             FROM 
                 {booking_answers} AS tba
                 LEFT JOIN {booking_options} AS obo ON obo.id = tba.optionid
@@ -331,8 +326,7 @@ if (!$download) {
 
     if ($bookingData->option->connectedform == 1) {
         $ifcondition = ', IF(bo.conectedoption > 0, IF((SELECT COUNT(*) FROM {booking_answers} AS tba WHERE tba.optionid = bo.conectedoption AND tba.userid = ba.userid) = 1, 1, 0), 0) AS connected';
-    }
-    else {
+    } else {
         $ifcondition = '';
     }
     $fields = 'u.id, ' . get_all_user_name_fields(true, 'u') . ', u.username, u.firstname, u.lastname, u.institution, ba.completed, ba.timecreated, ba.userid' . $ifcondition;
@@ -545,6 +539,11 @@ if (!$download) {
             $myxls->write_string(0, 6, get_string("searchFinished", "booking"));
             $i = 7;
         }
+        if (!empty($bookingData->booking->conectedbooking)) {
+            $myxls->write_string(0, $i++, get_string("connection", "booking"));
+            $myxls->write_string(0, $i++, get_string("connectiontype", "booking"));
+        }
+
         $addfields = explode(',', $bookingData->booking->additionalfields);
         $addquoted = "'" . implode("','", $addfields) . "'";
         if ($userprofilefields = $DB->get_records_select('user_info_field', 'id > 0 AND shortname IN (' . $addquoted . ')', array(), 'id', 'id, shortname, name')) {
@@ -566,6 +565,7 @@ if (!$download) {
                 $location = $bookingData->option->location;
                 $coursestarttime = $bookingData->option->coursestarttime;
                 $courseendtime = $bookingData->option->courseendtime;
+                $connectedform = $bookingData->option->connectedform;
 
 
                 foreach ($bookingData->users as $usernumber => $user) {
@@ -601,8 +601,31 @@ if (!$download) {
                     $myxls->write_string($row, 7, $user->firstname, $cellform);
                     $myxls->write_string($row, 8, $user->lastname, $cellform);
                     $myxls->write_string($row, 9, $user->email, $cellform);
+
+                    if ($user->completed == 1) {
+                        $user->completed = get_string('yes', 'mod_booking');
+                    } else {
+                        $user->completed = get_string('no', 'mod_booking');
+                    }
                     $myxls->write_string($row, 10, $user->completed, $cellform);
                     $i = 11;
+                    
+                    //MV START
+                    $connectedoptiontext = '';
+                    if ($connectedform == 1) {
+                        $connectedoptiontext = booking_get_option_text('booking_options', $bookingData->option->conectedoption);
+                        $connectiontype = get_string('connectionauto', 'mod_booking');
+                    } else if (!empty($bookingData->booking->conectedbooking) && $connectedform == 0) {
+                        $connectedoptiontext = export_connectmanual($optionid, $user->id);
+                        $connectiontype = get_string('connectionmanual', 'mod_booking');
+                    } else {
+                        $connectedoptiontext = '';
+                        $connectiontype = '';
+                    }
+                    $myxls->write_string($row, $i++, format_string($connectedoptiontext, true));
+                    $myxls->write_string($row, $i++, $connectiontype, $cellform);
+                    // MV END
+                    
                     if ($DB->get_records_select('user_info_data', 'userid = ' . $user->id, array(), 'fieldid')) {
                         foreach ($userprofilefields as $profilefieldid => $profilefield) {
                             $fType = $DB->get_field('user_info_field', 'datatype', array('shortname' => $profilefield->shortname));
@@ -636,6 +659,7 @@ if (!$download) {
                 $bookingData = new booking_option($cm->id, $optionid);
                 $bookingData->apply_tags();
                 $option_text = $bookingData->option->text;
+                $connectedform = $bookingData->option->connectedform;
 
                 if ($user->waitinglist) {
                     $cellform = $cellformat1;
@@ -651,8 +675,31 @@ if (!$download) {
                 $myxls->write_string($row, 3, $user->firstname, $cellform);
                 $myxls->write_string($row, 4, $user->lastname, $cellform);
                 $myxls->write_string($row, 5, $user->email, $cellform);
+
+                if ($user->completed == 1) {
+                    $user->completed = get_string('yes', 'mod_booking');
+                } else {
+                    $user->completed = get_string('no', 'mod_booking');
+                }
                 $myxls->write_string($row, 6, $user->completed, $cellform);
                 $i = 7;
+
+                //MV START
+                $connectedoptiontext = '';
+                if ($connectedform == 1) {
+                    $connectedoptiontext = booking_get_option_text('booking_options', $bookingData->option->conectedoption);
+                    $connectiontype = get_string('connectionauto', 'mod_booking');
+                } else if (!empty($bookingData->booking->conectedbooking) && $connectedform == 0) {
+                    $connectedoptiontext = export_connectmanual($optionid, $user->id);
+                    $connectiontype = get_string('connectionmanual', 'mod_booking');
+                } else {
+                    $connectedoptiontext = '';
+                    $connectiontype = '';
+                }
+                $myxls->write_string($row, $i++, format_string($connectedoptiontext, true));
+                $myxls->write_string($row, $i++, $connectiontype, $cellform);
+                // MV END
+
                 if ($DB->get_records_select('user_info_data', 'userid = ' . $user->id, array(), 'fieldid')) {
                     foreach ($userprofilefields as $profilefieldid => $profilefield) {
                         $fType = $DB->get_field('user_info_field', 'datatype', array('shortname' => $profilefield->shortname));
@@ -687,21 +734,60 @@ if (!$download) {
         exit;
     }
 }
+
+    /**
+     * Search all booking option which the participant is connected by manual connection
+     * @param $optionid
+     * @param $user
+     * @return $connectedtext for export in xls/ods
+     */    
+    function export_connectmanual($optionid, $user) {
+        global $User, $DB;
+                $connectedoption = $DB->get_records_sql('SELECT 
+                        obo.text 
+                    FROM
+                        {booking_answers} AS oba
+                    LEFT JOIN {booking_options} AS obo ON obo.id = oba.optionid
+                    WHERE
+                        oba.frombookingid = ' . $optionid
+                        . ' AND oba.userid = ' . $user);
+                  
+                  
+                    $connectedoption = json_encode($connectedoption, true); 
+                    $connectedoption = explode(',', $connectedoption);
+                  
+                    $connectedtext = '';
+                    $m = 0;
+                    foreach($connectedoption as $text) {
+//                        $optiontext = strstr($text, '":"');
+//                        $optiontext = substr($optiontext, 3);
+//                        $optiontext = strstr($optiontext, '"}', true);
+                        $optiontext = strstr(substr(strstr($text, '":"'),3), '"}',true);
+                        if ($m == 0) {
+                            $connectedtext .= $optiontext;
+                        }
+                        else {
+                            $connectedtext .= ', ' .$optiontext;
+                        }
+                        $m++;
+                    }
+        return $connectedtext;                      
+    }
 ?>
 
 <script type="text/javascript">
 
-    YUI().use('node-event-simulate', function (Y) {
+    YUI().use('node-event-simulate', function(Y) {
 
-        Y.one('#buttonclear').on('click', function () {
+        Y.one('#buttonclear').on('click', function() {
             Y.one('#menusearchFinished').set('value', '');
             Y.one('#searchDate').set('value', '');
             Y.one('#searchButton').simulate('click');
         });
     });
 
-    YUI().use('node', function (Y) {
-        Y.delegate('click', function (e) {
+    YUI().use('node', function(Y) {
+        Y.delegate('click', function(e) {
             var buttonID = e.currentTarget.get('id'),
                     node = Y.one('#tableSearch');
 

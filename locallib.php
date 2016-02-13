@@ -683,7 +683,6 @@ class booking_option extends booking {
             return 0;
         }
     }
-
 }
 
 /**

@@ -157,6 +157,7 @@ $string['completion'] = 'Completion settings';
 $string['completiontext'] = 'Text shown on activity completion.';
 $string['completiontext_help'] = 'This text is displayed to the booking teacher (or other persons which have the capability \'mod/booking:readresponses\') if these confirm the participants the completion.';
 $string['connections'] = 'Connections';
+$string['connection'] = 'Connection';
 $string['connectedauto'] = 'Automatic connection';
 $string['connectedmanual'] = 'Manual connection';
 $string['connectedform'] = 'Connection type';
@@ -627,6 +628,10 @@ Date: {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}';
 $string['withselected'] = 'With selected users:';
 $string['associatedcourse'] = 'Associated course';
 $string['bookedusers'] = 'Booked users';
+$string['completionconfirmed'] = 'completion';
+$string['connectiontype'] = 'connection type';
+$string['connectionmanual'] = 'manual';
+$string['connectionauto'] = 'auto';
 $string['waitinglistusers'] = 'Users on waiting list';
 $string['downloadallresponses'] = 'Download all responses for all booking options';
 $string['allmailssend'] = 'All emails to users have been sent sucesfully!';
@@ -657,10 +662,10 @@ $string['messagetext'] = 'Message';
 $string['messagesend'] = 'You message was sucesfully send.';
 $string['booking:communicate'] = 'Can communicate';
 
+$string['activitycompletionsuccess'] = 'All selected users have been marked for activity completion';
+$string['confirmactivitycompletion'] = 'Confirm activity completion';
 $string['enablecompletion'] = 'Enable activity completion.';
 $string['enablecompletiongroup'] = 'Activity completion';
-$string['confirmactivitycompletion'] = 'Confirm activity completion';
-$string['activitycompletionsuccess'] = 'All selected users have been marked for activity completion';
 
 // teachers.php
 $string['users'] = '<< Manage responses';
