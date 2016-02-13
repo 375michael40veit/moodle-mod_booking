@@ -610,7 +610,6 @@ if (!$download) {
                     $myxls->write_string($row, 10, $user->completed, $cellform);
                     $i = 11;
                     
-                    //MV START
                     $connectedoptiontext = '';
                     if ($connectedform == 1) {
                         $connectedoptiontext = booking_get_option_text('booking_options', $bookingData->option->conectedoption);
@@ -624,7 +623,6 @@ if (!$download) {
                     }
                     $myxls->write_string($row, $i++, format_string($connectedoptiontext, true));
                     $myxls->write_string($row, $i++, $connectiontype, $cellform);
-                    // MV END
                     
                     if ($DB->get_records_select('user_info_data', 'userid = ' . $user->id, array(), 'fieldid')) {
                         foreach ($userprofilefields as $profilefieldid => $profilefield) {
@@ -684,7 +682,6 @@ if (!$download) {
                 $myxls->write_string($row, 6, $user->completed, $cellform);
                 $i = 7;
 
-                //MV START
                 $connectedoptiontext = '';
                 if ($connectedform == 1) {
                     $connectedoptiontext = booking_get_option_text('booking_options', $bookingData->option->conectedoption);
@@ -698,7 +695,6 @@ if (!$download) {
                 }
                 $myxls->write_string($row, $i++, format_string($connectedoptiontext, true));
                 $myxls->write_string($row, $i++, $connectiontype, $cellform);
-                // MV END
 
                 if ($DB->get_records_select('user_info_data', 'userid = ' . $user->id, array(), 'fieldid')) {
                     foreach ($userprofilefields as $profilefieldid => $profilefield) {
