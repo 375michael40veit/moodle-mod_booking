@@ -157,6 +157,13 @@ class mod_booking_bookingform_form extends moodleform {
         }
         $mform->addElement('select', 'courseid', get_string("choosecourse", "booking"), $coursearray);
         
+        $connectedform = array(0 => get_string('connectedmanual', 'booking'),
+                              1 => get_string('connectedauto', 'booking'));
+        $mform->addElement('select', 'connectedform', get_string('connectedform', 'booking'), $connectedform);
+        $mform->setDefault('connectedform', 0);
+        $mform->addHelpButton('connectedform', 'connectedform', 'booking');
+        
+        
         $booking = $DB->get_record('booking', array('id' => $this->_customdata['bookingid']));
         $opts = array(0 => get_string('notconectedbooking', 'mod_booking'));
 
@@ -168,6 +175,7 @@ class mod_booking_bookingform_form extends moodleform {
 
         $mform->addElement('select', 'conectedoption', get_string('connectedoption', 'mod_booking'), $opts);
         $mform->setDefault('conectedoption', 0);
+        $mform->disabledIf('conectedoption', 'connectedform', 0);
         $mform->addHelpButton('conectedoption', 'connectedoption', 'mod_booking');
 
         // --- URLs to polls ------------------

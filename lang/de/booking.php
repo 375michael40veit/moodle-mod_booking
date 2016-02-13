@@ -140,6 +140,11 @@ $string['waitspaceavailable'] = 'Wartelistenplätze verfügbar';
 // Bookingform
 $string['address'] = 'Adresse';
 $string['connections'] = 'Verknüpfungen';
+$string['connectedauto'] = 'Automatische Verknüpfung';
+$string['connectedmanual'] = 'Manuelle Verknüpfung';
+$string['connectedform'] = 'Verknüpfungsart';
+$string['connectedform_help'] = 'Die Grundeinstellung ist \'Manuelle Verknüpfung\' mit welcher die gebuchten Teilnehmer/innen manuell in andere Buchungsoptionen eingetragen werden können.<br />
+Mit der Einstellung \'Automatische Verknüpfung\' wird der Teilnehmer automatisch in die verknüpfte Buchungsoption eingetragen.';
 $string['connectedoption'] = 'Verbindungsoption zu anderen Buchungsaktivitäten';
 $string['connectedoption_help'] = 'Sie können diese Aktivität mit einer anderen Buchungsaktivität verbinden,soweit in diesem Kurs weitere Buchungsaktivitäten existieren.';
 $string['coursestart'] = 'Kursdauer, Kalendereintrag und Kursbenachrichtigung';
@@ -426,6 +431,24 @@ $string['waitinglistusers'] = 'Nutzer/innen auf der Warteliste';
 $string['downloadallresponses'] = 'Alle Buchungen herunterladen';
 $string['allmailssend'] = 'Alle Benachrichtigungen wurden erfolgreich versandt!';
 $string['sendcustommessage'] = 'Persönliche Nachricht senden';
+$string['nocourse'] = 'Keinen Kurs für dies Buchungsoption ausgesucht.';
+$string['userrssucesfullenroled'] = 'Alle Teilnehmer/inne wurden erfolgreich in den Kurs eingeschrieben!';
+$string['searchName'] = 'Name';
+$string['searchSurname'] = 'Vorname';
+$string['searchDate'] = 'Datum';
+$string['searchFinished'] = 'Kurs abgeschlossen';
+$string['yes'] = 'Ja';
+$string['no'] = 'Nein';
+$string['onlythisbookingurl'] = 'Nur diese Buchungs-URL';
+$string['gotobooking'] = '<< Buchungsoptionen';
+$string['nousers'] = 'Keine Teilnehmer/innen!';
+$string['booktootherbooking'] = 'TN in andere Buchung eintragen';
+$string['toomuchusersbooked'] = 'Die max. Anzahl von Teilnehmer/innen, die Sie buchen können ist: {$a}';
+$string['selectatleastoneuser'] = 'Bitte wählen Sie mindestens einen 1 Teilnehmer!';
+$string['usersnosucesfullybooked'] = 'Es wurden keine Teilnehmer/innen in die andere Buchungsoption eingetragen. Es stehen keine Plätze mehr zur Verfügung.';
+$string['userssucesfullybooked'] = 'Alle Teilnehmer/innen wurden erfolgreich in die ausgewählte Buchungsoption eingetragen.';
+$string['optionid'] = 'Option-ID';
+$string['selectoptionid'] = 'Bitte wählen sie eine Option!';
 
 //teachers.php
 $string['users'] = '<< Buchungen verwalten';

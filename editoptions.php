@@ -64,6 +64,9 @@ if ($optionid == 'add') {
     if ($default_values->coursestarttime) {
         $default_values->startendtimeknown = "checked";
     }
+    if ($default_values->conectedoption == 0) {
+        $default_values->connectedform = 0;
+    }
 } else {
     print_error('This booking option does not exist');
 }

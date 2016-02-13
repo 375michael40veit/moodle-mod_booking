@@ -1013,6 +1013,28 @@ function xmldb_booking_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2016011600, 'booking');
     }
     
+    if ($oldversion < 2016021000) {
+
+        $table = new xmldb_table('booking_options');
+        
+        // Add field connectedform - Choise between
+        $field = new xmldb_field('connectedform', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'pollurlteachers');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $tableanswers = new xmldb_table('booking_answers');
+        $field = new xmldb_field('frombookingid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'waitinglist');
+
+        // Add field frombookingid.
+        if (!$dbman->field_exists($tableanswers, $field)) {
+            $dbman->add_field($tableanswers, $field);
+        }
+        
+        // Booking savepoint reached.
+        upgrade_mod_savepoint(true, 2016021000, 'booking');
+    }
+    
     return true;
 }
 

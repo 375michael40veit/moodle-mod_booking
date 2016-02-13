@@ -31,7 +31,7 @@ class all_users extends table_sql {
         // Define the titles of columns to show in header.
         $headers = array(
             '',
-            '',
+            'Auto<br />Connect',
             get_string('institution', 'mod_booking'),
             get_string('fullname', 'mod_booking'),
             get_string('timecreated', 'mod_booking')
@@ -59,6 +59,14 @@ class all_users extends table_sql {
         return '';
     }
 
+    function col_fullname($values) {
+        if (empty($values->otheroptions)) {
+            return "{$values->firstname} {$values->lastname}";
+        } else {
+            return "{$values->firstname} {$values->lastname} ({$values->otheroptions})";
+        }
+    }
+    
     function col_info($values) {
         
         $completed = '&nbsp;';
@@ -68,8 +76,11 @@ class all_users extends table_sql {
             $completed = '&#x2713;';
         } 
         
-        if ($values->connected) {
-            $connected = '&#11014;';
+        if (empty($values->connected)) {
+            $connected = '';
+        }
+        else {
+            $connected = $values->connected;
         } 
         
         return $completed . $connected;

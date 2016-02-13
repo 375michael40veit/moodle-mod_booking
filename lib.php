@@ -314,6 +314,7 @@ function booking_update_options($optionvalues) {
     $option = new stdClass();
     $option->bookingid = $optionvalues->bookingid;
     $option->text = trim($optionvalues->text);
+    $option->connectedform = $optionvalues->connectedform;
     $option->conectedoption = $optionvalues->conectedoption;
     $option->howmanyusers = $optionvalues->howmanyusers;
     $option->removeafterminutes = $optionvalues->removeafterminutes;
@@ -719,10 +720,10 @@ function booking_show_form($booking, $user, $cm, $allresponses, $sorturl = '', $
             $printstatus = '';
             if ($booking->booking->cancancelbook == 0 && $option->coursestarttime > 0 && $option->coursestarttime < time()) {
                 if($option->courseendtime > time ()) {
-                    $optiondisplay->button =  get_string('nobookingforstarttime', booking);
+                    $optiondisplay->button =  get_string('nobookingforstarttime', 'booking');
                 }
                 else {
-                    $optiondisplay->button =  get_string('nobookingforendtime', booking);
+                    $optiondisplay->button =  get_string('nobookingforendtime', 'booking');
                 }
                 $optiondisplay->delete = '';
                 $optiondisplay->booked = '';
@@ -731,7 +732,7 @@ function booking_show_form($booking, $user, $cm, $allresponses, $sorturl = '', $
 
             // If the setting “cancancelbook” is set to Yes, then the user can still book within the course time.
             if ($booking->booking->cancancelbook == 1 && $option->courseendtime > 0 && $option->courseendtime < time()) {
-                $optiondisplay->button =  get_string('nobookingforendtime', booking);
+                $optiondisplay->button =  get_string('nobookingforendtime', 'booking');
                 $optiondisplay->delete = '';
                 $optiondisplay->booked = '';
                 $printstatus = 'no';

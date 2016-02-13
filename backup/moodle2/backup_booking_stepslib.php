@@ -45,7 +45,7 @@ class backup_booking_activity_structure_step extends backup_activity_structure_s
             'duration', 'points', 'organizatorname', 'pollurl', 'addtogroup', 'categoryid',
             'pollurltext', 'additionalfields', 'eventtype', 'notificationtext', 'userleave',
             'enablecompletion', 'pollurlteachers', 'pollurlteacherstext', 'cancancelbook', 
-            'conectedbooking', 'showinapi', 'lblbooking', 'lbllocation', 'lblinstitution',
+            'connectedform', 'conectedbooking', 'showinapi', 'lblbooking', 'lbllocation', 'lblinstitution',
             'lblname', 'lblsurname', 'btncacname', 'lblteachname', 'lblsputtname', 
             'btnbooknowname', 'btncancelname'));
 
@@ -61,7 +61,7 @@ class backup_booking_activity_structure_step extends backup_activity_structure_s
         $answers = new backup_nested_element('answers');
 
         $answer = new backup_nested_element('answer', array('id'), array(
-            'bookingid', 'userid', 'optionid', 'timemodified', 'completed', 'timecreated', 'waitinglist'));
+            'bookingid', 'userid', 'optionid', 'timemodified', 'completed', 'timecreated', 'waitinglist', 'frombookingid'));
 
         $categories = new backup_nested_element('categories');
 

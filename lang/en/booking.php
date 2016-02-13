@@ -157,6 +157,11 @@ $string['completion'] = 'Completion settings';
 $string['completiontext'] = 'Text shown on activity completion.';
 $string['completiontext_help'] = 'This text is displayed to the booking teacher (or other persons which have the capability \'mod/booking:readresponses\') if these confirm the participants the completion.';
 $string['connections'] = 'Connections';
+$string['connectedauto'] = 'Automatic connection';
+$string['connectedmanual'] = 'Manual connection';
+$string['connectedform'] = 'Connection type';
+$string['connectedform_help'] = 'The default setting is \'Manual connection\' with which the booked participants can be booked manually into other booking options.<br />
+With the setting \'Automatic connection\' the participant will be booked automatically in connected other booking.';
 $string['connectedoption'] = 'Connected option';
 $string['connectedoption_help'] = 'You can connect this activity with another booking activities, condition that in this course there are other booking activities';
 $string['coursestart'] = 'Course duration, calendar entry and course notification';
@@ -641,8 +646,10 @@ $string['nousers'] = 'No users!';
 $string['booktootherbooking'] = 'Book users to other booking';
 $string['toomuchusersbooked'] = 'The max number of users you can book is: {$a}';
 $string['selectatleastoneuser'] = 'Please, select at least 1 user!';
+$string['usersnosucesfullybooked'] = 'No users haven\'t been sucesfully booked to other booking. There are no available places';
 $string['userssucesfullybooked'] = 'All users have been sucesfully booked to other booking.';
 $string['optionid'] = 'Option ID';
+$string['selectoptionid'] = 'Please, select option!';
 
 // Send message
 $string['messagesubject'] = 'Subject';

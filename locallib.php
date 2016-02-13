@@ -144,22 +144,33 @@ class booking_option extends booking {
 
         parent::__construct($id);
         $this->optionid = $optionid;
-        $this->update_booked_users();
         $this->option = $DB->get_record('booking_options', array('id' => $optionid), '*', 'MUST_EXIST');
+        if ($this->option->connectedform == 1) {
+            $this->update_booked_users();
+        }
         $this->filters = $filters;
         $this->page = $page;
         $this->perpage = $perpage;
         $this->get_users();
-        $this->calculateHowManyCanBookToOther();
+        if ($this->option->connectedform == 1) {
+            $this->calculateHowManyCanBookToOther($optionid);
+        }
     }
 
-    public function calculateHowManyCanBookToOther() {
+    public function calculateHowManyCanBookToOther($optionid) {
         global $DB;
 
-        if (isset($this->option->conectedoption) && $this->option->conectedoption > 0) {
+        if ((isset($this->option->conectedoption) && $this->option->conectedoption > 0) || (isset($optionid) && $optionid > 0)) {
             $alredyBooked = 0;
 
-            $result = $DB->get_records_sql('SELECT answers.userid FROM {booking_answers} AS answers INNER JOIN {booking_answers} AS parent on parent.userid = answers.userid WHERE answers.optionid = ? AND parent.optionid = ?', array($this->optionid, $this->option->conectedoption));
+            if ($this->option->connectedform == 0) {
+                $optid = array($this->optionid, $optionid);
+            }
+
+            else if ($this->option->connectedform == 1) {
+                $optid = array($this->optionid, $this->option->conectedoption);
+            }
+            $result = $DB->get_records_sql('SELECT answers.userid FROM {booking_answers} AS answers INNER JOIN {booking_answers} AS parent on parent.userid = answers.userid WHERE answers.optionid = ? AND parent.optionid = ?', $optid);
 
             $alredyBooked = count($result);
 
@@ -184,11 +195,20 @@ class booking_option extends booking {
                     $user->usersOnList = 0;
                 }
             }
-
-            $this->canBookToOtherBooking = (int) $this->option->howmanyusers - (int) $alredyBooked;
+            if ($this->option->connectedform == 0) {
+                return (int) $this->option->howmanyusers - (int) $alredyBooked;
+            }
+            else if ($this->option->connectedform == 1) {
+                $this->canBookToOtherBooking = (int) $this->option->howmanyusers - (int) $alredyBooked;
+            }
         } else {
-            $this->canBookToOtherBooking = 0;
+            if ($this->option->connectedform == 0) {
+                return 0;
+            }
+            else if ($this->option->connectedform == 1) {
+                $this->canBookToOtherBooking = 0;
         }
+    }
     }
 
     public function apply_tags() {
@@ -561,7 +581,7 @@ class booking_option extends booking {
      * Saves the booking for the user
      * @return boolean true if booking was possible, false if meanwhile the booking got full
      */
-    public function user_submit_response($user) {
+    public function user_submit_response($user, $frombookingid = 0) {
         global $DB;
 
         if (null == $this->option) {
@@ -584,6 +604,12 @@ class booking_option extends booking {
         if (!($currentanswerid = $DB->get_field('booking_answers', 'id', array('userid' => $user->id, 'optionid' => $this->optionid)))) {
             $newanswer = new stdClass();
             $newanswer->bookingid = $this->id;
+            if($this->option->connectedform == 0) {
+                $newanswer->frombookingid = $frombookingid;
+            }
+            else {
+                $newanswer->frombookingid = 0;
+            }
             $newanswer->userid = $user->id;
             $newanswer->optionid = $this->optionid;
             $newanswer->timemodified = time();
@@ -595,6 +621,18 @@ class booking_option extends booking {
             }
             //TODO replace
             booking_check_enrol_user($this->option, $this->booking, $user->id);
+            
+            // If automatic connection to other booking option
+            if($this->option->connectedform == 1) {
+                if (isset($this->option->conectedoption) && $this->option->conectedoption > 0) {
+                    if (!empty($user->id)) {
+                        $tmpcmid = $DB->get_record_sql("SELECT cm.id FROM {course_modules} cm JOIN {modules} md ON md.id = cm.module JOIN {booking} m ON m.id = cm.instance WHERE md.name = 'booking' AND cm.instance = ?", array($this->booking->conectedbooking));
+                        $tmpBooking = new booking_option($tmpcmid->id, $this->option->conectedoption);
+
+                        $tmpBooking->user_submit_response($user);
+        }
+                }
+            }
         }
 
         $event = \mod_booking\event\bookingoption_booked::create(array(
@@ -898,7 +936,10 @@ class booking_options extends booking {
             } else {
                 $option->bookingclosingtime = false;
             }
+            if ($option->connectedform == 0) {
+                $option->conectedoption = 0;
         }
+    }
     }
 
     /**
