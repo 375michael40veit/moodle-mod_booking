@@ -464,6 +464,11 @@ $string['messagesubject'] = 'Betreff';
 $string['messagetext'] = 'Nachricht';
 $string['messagesend'] = 'Die Nachricht wurde erfolgreich versandt.';
 
+$string['activitycompletionsuccess'] = 'Bei allen ausgewählten Teilnehmer/innen wurde der Abschluss erfolgreich markiert.';
+$string['confirmactivitycompletion'] = 'Abschluss bestätigen';
+$string['enablecompletion'] = 'Abschlussverfolgung steht zur Verfügung';
+$string['enablecompletiongroup'] = 'Abschlussverfolgung';
+
 // institutions.php
 $string['institutions'] = 'Institutionen';
 $string['addnewinstitution'] = 'Neue Institution hinzufügen';
