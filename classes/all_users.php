@@ -60,30 +60,32 @@ class all_users extends table_sql {
     }
 
     function col_fullname($values) {
-        if (empty($values->otheroptions)) {
             return "{$values->firstname} {$values->lastname}";
-        } else {
-            return "{$values->firstname} {$values->lastname} ({$values->otheroptions})";
         }
-    }
     
     function col_info($values) {
-        
-        $completed = '&nbsp;';
-        $connected = '&nbsp;';
-        
-        if ($values->completed) {
-            $completed = '&#x2713;';
-        } 
-        
-        if (empty($values->connected)) {
-            $connected = '';
+        if (!empty($values->otheroptions)) {
+            $connected = get_string('connectedmanual', 'mod_booking') . ':<br />&nbsp;&nbsp;&nbsp;&nbsp;' . $values->otheroptions;
+        }
+        elseif (!empty($values->connected)) {
+            $connected = get_string('connectedauto', 'mod_booking') . ':<br />&nbsp;&nbsp;&nbsp;&nbsp;' . $values->connected;
         }
         else {
-            $connected = $values->connected;
-        } 
+        $connected = '&nbsp;';
+        }
         
-        return $completed . $connected;
+        $completed = '';
+        
+        if ($values->completed) {
+            if (empty($values->otheroptions) && empty($values->connected)) {
+                $completed = get_string('completionconfirmed', 'mod_booking') . ': &#x2713;';
+        } 
+        else {
+                $completed = '<br />' . get_string('completionconfirmed', 'mod_booking') . ': &#x2713;';
+        } 
+        }
+        
+        return $connected . $completed;
     }    
 
     function col_selected($values) {
