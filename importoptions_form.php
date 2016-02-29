@@ -1,6 +1,7 @@
 <?php
 
 require_once("$CFG->libdir/formslib.php");
+require_once("../../lib/csvlib.class.php");
 
 class importoptions_form extends moodleform {
 
@@ -13,6 +14,16 @@ class importoptions_form extends moodleform {
         $mform->addElement('filepicker', 'csvfile', get_string('csvfile', 'booking'), null, array('maxbytes' => $CFG->maxbytes, 'accepted_types' => '*'));
         $mform->addRule('csvfile', null, 'required', null, 'client');
 
+       $choices = csv_import_reader::get_delimiter_list();
+        $mform->addElement('select', 'delimiter_name', get_string('csvdelimiter', 'booking'), $choices);
+        if (array_key_exists('cfg', $choices)) {
+            $mform->setDefault('delimiter_name', 'cfg');
+        } else if (get_string('listsep', 'langconfig') == ';') {
+            $mform->setDefault('delimter_name', 'semicolon');
+        } else {
+            $mform->setDefault('delimiter_name', 'comma');
+        }
+        
         $mform->addElement('text', 'dateparseformat', get_string('dateparseformat', 'booking')); // Add elements to your form
         $mform->setType('dateparseformat', PARAM_NOTAGS);                   //Set type of element
         $mform->setDefault('dateparseformat', get_string('defaultdateformat', 'booking'));

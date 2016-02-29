@@ -517,16 +517,41 @@ $string['sendmailtobooker_help'] = 'Activate this option in order to send bookin
   This is only relevant for bookings made on the page "book other users".';
 
 // importoptions.php
-$string['importcsvtitle'] = 'Import CSV';
+$string['and'] = ' and ';
+$string['bookingoptionidexistno'] = 'Booking option ID does not exist in the csv-file. Add in the csv-file the raw \'bookingoptionid\' and the relevant ID.';
+$string['bookingoptionnocreated'] = 'The booking option couldn\'t be created or updated: ';
+$string['bookingoptionunknown'] = '<h3>Unknown booking option</h3>';
+$string['bodeletenotpossible'] = 'Deleting of booking option is not possible because the booking option ID is not existing in the database.';
+$string['bodeletesuccessful'] = 'Booking option was deleted successfully.';
+$string['boupdatenotpossible'] = 'An Update isn\'t possible because the booking option id is missing in the database or in the csv-file. 
+Add in this case the booking option ID or delete the raw \'bookingoptionid\'.';
+$string['boupdatesuccessful'] = 'was updated successfully.';
 $string['csvfile'] = 'CSV file';
-$string['defaultdateformat'] = 'j.n.Y H:i:s';
+$string['csvdelimiter'] = 'CSV delimiter';
+$string['dateerror'] = 'Wrong date in line ';
 $string['dateparseformat'] = 'Date parse format';
 $string['dateparseformat_help'] = 'Please, use date format like specified in CSV file. Help with <a href="http://php.net/manual/en/function.date.php">this</a> resource for options.';
+$string['defaultdateformat'] = 'j.n.Y H:i:s';
+$string['emailtomany'] = 'There more than one email address found. An import is not possible because of that.<br />
+Thus a definite allocation can be done, you use in your csv file the field: ';
+$string['falseuserinfo'] = 'There isn\'t any user with this datas: ';
+$string['importcsvtitle'] = 'Import CSV';
+$string['importfinished'] = 'Importing finished successfully!';
+$string['insertnewbookingoption'] = 'The new booking option was created.';
+$string['or'] = ' or ';
+$string['teacherdeleteall'] = 'All trainers were deleted.';
+$string['teacherdelete'] = 'Trainer was deleted.';
+$string['teacherexist'] = 'Trainer is already enrolled.';
+$string['userexistno'] = 'Trainer does not exist with this datas in this booking option.';
+$string['teachernoupload'] = 'No teachers were uploaded because the following data is missung below the line: ';
+$string['teacheruploadsuccesfully'] = 'Teacher was uploaded succesfully.';
+$string['userdeleteall'] = 'All users were deleted.';
+$string['userdelete'] = 'User was deleted.';
+$string['userexist'] = 'User is already enrolled.';
+$string['userexistno'] = 'User does not exist with this datas in this booking option.';
+$string['usernoupload'] = 'No users were uploaded because the following data is missing below the line ';
+$string['useruploadsuccesfully'] = 'User was uploaded successfully.';
 $string['wrongfile'] = 'Wrong file!';
-$string['nouserfound'] = 'No user found: ';
-$string['noteacherfound'] = 'No teacher found in line {$a}: ';
-$string['importfinished'] = 'Importing finished!';
-$string['dateerror'] = 'Wrong date in line {$a}: ';
 
 // Confirmation mail
 $string['days'] = '{$a} days';

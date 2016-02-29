@@ -1,16 +1,16 @@
-<?PHP
+<?php
 
 $string['addmorebookings'] = 'Buchungen hinzufügen';
 $string['allowupdate'] = 'Buchungen dürfen gelöscht werden';
-$string['answered'] = 'Beantwortet';
+$string['answered'] = 'Gebucht';
 $string['attachical'] = 'ICAL Kalendereintrag hinzufügen';
 $string['attachicaldesc'] = 'E-Mail Benachrichtigungen im ical Kalenderformat hinzufügen, wenn diese Option aktiviert wird';
 $string['booking'] = 'Buchung';
 $string['booking:addinstance'] = 'Neue Buchung anlegen';
 $string['booking:choose'] = 'Buchen';
-$string['booking:deleteresponses'] = 'Anworten löschen';
-$string['booking:downloadresponses'] = 'Antworten herunterladen';
-$string['booking:readresponses'] = 'Antworten lesen';
+$string['booking:deleteresponses'] = 'Anmeldungen löschen';
+$string['booking:downloadresponses'] = 'Anmeldungen herunterladen';
+$string['booking:readresponses'] = 'Anmeldungen lesen';
 $string['booking:sendpollurl'] = 'Umfragelink senden';
 $string['booking:sendpollurltoteachers'] = 'Sende Umfragelink zu den teachers';
 $string['booking:subscribeusers'] = 'Für andere Teilnehmer/innen Buchungen durchführen';
@@ -42,8 +42,8 @@ $string['pluginadministration'] = 'Buchung bearbeiten';
 $string['pluginname'] = 'Buchung';
 $string['potentialsubscribers'] = 'Mögliche Nutzer/innen';
 $string['removeresponses'] = 'Alle Antworten löschen';
-$string['responses'] = 'Antworten';
-$string['responsesto'] = 'Antworten zu {$a} ';
+$string['responses'] = 'Anmeldungen';
+$string['responsesto'] = 'Anmeldungen zu {$a} ';
 $string['spaceleft'] = 'Platz verfügbar';
 $string['spacesleft'] = 'Plätze verfügbar';
 $string['subscribersto'] = 'Trainer/innen für  \'{$a}\'';
@@ -309,14 +309,40 @@ $string['sendmailtobooker_help'] = 'Diese Option aktivieren, um Buchungsbestäti
   Dies betrifft nur Buchungen, die auf der Seite "Buchung für andere Nutzer/innen durchführen" getätigt wurden';
 
 // importoptions.php
-$string['importcsvtitle'] = 'CSV-Datei importieren';
+$string['and'] = ' und ';
+$string['bookingoptionidexistno'] = 'Buchungsoption-ID existiert in der csv-Datei nicht. Ergänzen Sie die csv-Datei mit der Spalte \'bookingoptionid\' und der entsprechenden ID.';
+$string['bookingoptionnocreated'] = 'Die Buchungsoption konnte nicht erstellt oder aktualisiert werden: ';
+$string['bookingoptionunknown'] = '<h3>Unbekannte Buchungsoption</h3>';
+$string['bodeletenotpossible'] = 'Ein Löschen der Buchungsoption ist nicht möglich, weil die Buchungsoption-ID nicht in der Datenbank existiert.';
+$string['bodeletesuccessful'] = 'Buchungsoption wurde erfolgreich gelöscht.';
+$string['boupdatenotpossible'] = 'Ein Update ist nicht möglich, weil die Buchungsoption-ID entweder in der Datenbank nicht existiert oder in der csv-Datei 
+nicht eingetragen ist. Ergänzen Sie in diesem Falle die Buchungsoption-ID oder löschen Sie die Spalte \'bookingoptionid\' in der csv-Datei.';
+$string['boupdatesuccessful'] = 'wurde erfolgreich aktualisiert.';
 $string['csvfile'] = 'CSV Datei';
-$string['defaultdateformat'] = 'j.n.Y H:i:s';
+$string['csvdelimiter'] = 'CSV Trennzeichen';
+$string['dateerror'] = 'Falsches Datumsformat in Linie ';
 $string['dateparseformat'] = 'Datumsformat';
-$string['wrongfile'] = 'Falsche Datei!';
-$string['nouserfound'] = 'Kein/e User/in gefunden: ';
-$string['noteacherfound'] = 'Kein/e Trainer/in gefunden: ';
+$string['defaultdateformat'] = 'j.n.Y H:i:s';
+$string['emailtomany'] = 'Es wurden mehr als eine Mail-Adresse gefunden. Ein Import ist deswegen nicht möglich.<br />
+Damit eine eindeutige Zuweisung erfolgen kann, verwenden Sie in Ihrer csv-Datei das Feld: ';
+$string['falseuserinfo'] = 'Es gibt keinen User mit folgenden Daten: ';
+$string['importcsvtitle'] = 'CSV-Datei importieren';
 $string['importfinished'] = 'Importieren erfolgreich beendet!';
+$string['insertnewbookingoption'] = 'Eine neue Buchungsoption wurde erstellt.';
+$string['or'] = ' oder ';
+$string['teacherdeleteall'] = 'Alle Trainer/innen wurden gelöscht.';
+$string['teacherdelete'] = 'Trainer/in wurde gelöscht.';
+$string['teacherexist'] = 'Trainer/in ist bereits schon eingeschrieben.';
+$string['teacherexistno'] = 'Trainer/in mit diesen Daten existiert nicht in dieser Buchungsoption.';
+$string['teachernoupload'] = 'Es wurde keine Trainer/innen hochgeladen.';
+$string['teacheruploadsuccesfully'] = 'Trainer wurde erfolgreich hochgeladen.';
+$string['userdeleteall'] = 'Alle Teilnehmer/innen wurden gelöscht.';
+$string['userdelete'] = 'Teilnehmer/in wurde gelöscht.';
+$string['userexist'] = 'Teilnehmer/in ist bereits schon eingeschrieben.';
+$string['userexistno'] = 'Teilnehmer/in existiert  mit diesen Daten nicht in dieser Buchungsoption.';
+$string['usernoupload'] = 'Es wurden keine User hochgeladen.';
+$string['useruploadsuccesfully'] = 'User wurde erfolgreich hochgeladen.';
+$string['wrongfile'] = 'Falsche Datei!';
 
 // Confirmation mail
 $string['days'] = '{$a} Tage';
