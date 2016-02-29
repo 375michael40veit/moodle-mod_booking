@@ -13,6 +13,7 @@ class importoptions_form extends moodleform {
 
         $mform->addElement('filepicker', 'csvfile', get_string('csvfile', 'booking'), null, array('maxbytes' => $CFG->maxbytes, 'accepted_types' => '*'));
         $mform->addRule('csvfile', null, 'required', null, 'client');
+        $mform->addHelpButton('csvfile', 'csvfile', 'mod_booking');
 
        $choices = csv_import_reader::get_delimiter_list();
         $mform->addElement('select', 'delimiter_name', get_string('csvdelimiter', 'booking'), $choices);

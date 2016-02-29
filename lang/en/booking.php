@@ -527,6 +527,19 @@ $string['boupdatenotpossible'] = 'An Update isn\'t possible because the booking 
 Add in this case the booking option ID or delete the raw \'bookingoptionid\'.';
 $string['boupdatesuccessful'] = 'was updated successfully.';
 $string['csvfile'] = 'CSV file';
+$string['csvfile_help'] = '<h4>Import Institution</h4>
+CSV file must contain only one column named Institution.
+<h4>Import booking option</h4>
+The following fields are valid when importing: <br />
+<ul>
+<li>Required field when creating the booking option: name</li>
+<li>Required field when updating the booking option: bookingoptionid</li>
+<li>Optional fields: description, coursestarttime, courseendtime, institution, address, location, maxanswers, maxoverbooking, 
+bookingopeningtime, bookingclosingtime, showdatetime, pollurl, pollurlteachers, courseid, connectedform, conectedoption, 
+notificationoption, notificationtext,  daystonotify, howmanyusers, removeafterminutes, completiontext, disablebookingusers, 
+teacheremail, teacheruserid, teacherusername, useremail, userid, username, finished</li>
+<li>Other optional fields for deleting (0 = no / 1 = yes - delete): deletebookingoption, deleteteacher, deleteallteachers, deleteuser, 
+deleteallusers</li></ul>';
 $string['csvdelimiter'] = 'CSV delimiter';
 $string['dateerror'] = 'Wrong date in line ';
 $string['dateparseformat'] = 'Date parse format';
@@ -718,4 +731,3 @@ $string['addnewinstitution'] = 'Add new institution';
 $string['institutionname'] = 'Institution name';
 $string['addnewinstitution'] = 'Add new institution';
 $string['sucesfulldeletedinstitution'] = 'Institution was sucesfully deleted';
-$string['csvfile_help'] = 'CSV file must contain only one column named Institution.';

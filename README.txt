@@ -33,3 +33,16 @@ New features added by Andraž Prinčič:
 - Sending custom messages to users
 - Select teachers for course
 - Select which custom fields to export in excel
+- different options for buttons and labels
+- new manual system for connecting to other booking options
+
+New features added by Michael Veit
+- more different settings for date/time und booking time
+- extension of the backup, restore and delete functions
+- Option: add notificationtext (booking_options) to notificationtext (booking)or 
+          send only the notificationtext of booking_options
+- Option: Auto and manual connection to other booking option. The manual connection is based by Andraž Prinčič.
+- Expansion of Export (ods/xls)
+- Flexible csv-Import many fields of booking option: Upload, delete one or multiple users and trainers; 
+  Delete the whole booking option with teachers and users; Choice of delimiter
+

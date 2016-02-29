@@ -319,6 +319,19 @@ $string['boupdatenotpossible'] = 'Ein Update ist nicht möglich, weil die Buchun
 nicht eingetragen ist. Ergänzen Sie in diesem Falle die Buchungsoption-ID oder löschen Sie die Spalte \'bookingoptionid\' in der csv-Datei.';
 $string['boupdatesuccessful'] = 'wurde erfolgreich aktualisiert.';
 $string['csvfile'] = 'CSV Datei';
+$string['csvfile_help'] = '<h4>Import Institution</h4>
+CSV file muss nur die Spalte benannt mit Institution enthalten.
+<h4>Import booking option</h4>
+Folgende Felder sind beim Import gültig: <br />
+<ul>
+<li>Pflichtfeld bei Erstellung der Buchugnsoption: name</li>
+<li>Pflichtfeld bei Aktualisierung der Buchngsoption: bookingoptionid</li>
+<li>Optionale Felder: description, coursestarttime, courseendtime, institution, address, location, maxanswers, maxoverbooking, 
+bookingopeningtime, bookingclosingtime, showdatetime, pollurl, pollurlteachers, courseid, connectedform, conectedoption, 
+notificationoption, notificationtext,  daystonotify, howmanyusers, removeafterminutes, completiontext, disablebookingusers, 
+teacheremail, teacheruserid, teacherusername, useremail, userid, username, finished</li>
+<li>Weitere optionale Felder zum Löschen (0 = nein / 1 = ja, Löschen): deletebookingoption, deleteteacher, deleteallteachers, deleteuser, 
+deleteallusers</li></ul>';
 $string['csvdelimiter'] = 'CSV Trennzeichen';
 $string['dateerror'] = 'Falsches Datumsformat in Linie ';
 $string['dateparseformat'] = 'Datumsformat';
