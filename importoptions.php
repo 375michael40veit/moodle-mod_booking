@@ -89,10 +89,10 @@ if ($mform->is_cancelled()) {
     
     $notifynum = 0;
     
-    $csvfile = $mform->get_file_content('csvfile');
+    $importoptioncsvfile = $mform->get_file_content('importoptioncsvfile');
 
-    $rawlines = explode(PHP_EOL, $csvfile);
-    $csvfile = '';  //unset($csvfile) 
+    $rawlines = explode(PHP_EOL, $importoptioncsvfile);
+    $importoptioncsvfile = '';  //unset($csvfile) 
 
     $optionalDefaults = array("bookingoptionid" => 1); //required for Update
     $required = array("name" => 1);

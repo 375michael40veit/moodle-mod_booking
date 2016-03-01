@@ -526,11 +526,8 @@ $string['bodeletesuccessful'] = 'Booking option was deleted successfully.';
 $string['boupdatenotpossible'] = 'An Update isn\'t possible because the booking option id is missing in the database or in the csv-file. 
 Add in this case the booking option ID or delete the raw \'bookingoptionid\'.';
 $string['boupdatesuccessful'] = 'was updated successfully.';
-$string['csvfile'] = 'CSV file';
-$string['csvfile_help'] = '<h4>Import Institution</h4>
-CSV file must contain only one column named Institution.
-<h4>Import booking option</h4>
-The following fields are valid when importing: <br />
+$string['importoptioncsvfile'] = 'CSV file';
+$string['importoptioncsvfile_help'] = 'The following fields are valid when importing the booking options: <br />
 <ul>
 <li>Required field when creating the booking option: name</li>
 <li>Required field when updating the booking option: bookingoptionid</li>
@@ -726,8 +723,11 @@ $string['excelfile'] = 'CSV file with activity completion';
 // institutions.php
 $string['institutions'] = 'Institutions';
 $string['addnewinstitution'] = 'Add new institution';
+$string['institutioncsvfile'] = 'CSV file';
+$string['institutioncsvfile_help'] = '<h4>Import Institution</h4>
+CSV file must contain only one column named Institution.';
 
 // institutionform.class.php
 $string['institutionname'] = 'Institution name';
 $string['addnewinstitution'] = 'Add new institution';
-$string['sucesfulldeletedinstitution'] = 'Institution was sucesfully deleted';
+$string['sucesfulldeletedinstitution'] = 'Institution was successfully deleted';

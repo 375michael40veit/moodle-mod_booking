@@ -318,11 +318,8 @@ $string['bodeletesuccessful'] = 'Buchungsoption wurde erfolgreich gelöscht.';
 $string['boupdatenotpossible'] = 'Ein Update ist nicht möglich, weil die Buchungsoption-ID entweder in der Datenbank nicht existiert oder in der csv-Datei 
 nicht eingetragen ist. Ergänzen Sie in diesem Falle die Buchungsoption-ID oder löschen Sie die Spalte \'bookingoptionid\' in der csv-Datei.';
 $string['boupdatesuccessful'] = 'wurde erfolgreich aktualisiert.';
-$string['csvfile'] = 'CSV Datei';
-$string['csvfile_help'] = '<h4>Import Institution</h4>
-CSV file muss nur die Spalte benannt mit Institution enthalten.
-<h4>Import booking option</h4>
-Folgende Felder sind beim Import gültig: <br />
+$string['importoptioncsvfile'] = 'CSV Datei';
+$string['importoptioncsvfile_help'] = 'Folgende Felder sind beim Import der Buchungsoptionen gültig: <br />
 <ul>
 <li>Pflichtfeld bei Erstellung der Buchugnsoption: name</li>
 <li>Pflichtfeld bei Aktualisierung der Buchngsoption: bookingoptionid</li>
@@ -511,6 +508,10 @@ $string['enablecompletiongroup'] = 'Abschlussverfolgung';
 // institutions.php
 $string['institutions'] = 'Institutionen';
 $string['addnewinstitution'] = 'Neue Institution hinzufügen';
+$string['institutioncsvfile'] = 'CSV Datei';
+$string['institutioncsvfile_help'] = '<h4>Import Institution</h4>
+CSV file muss nur die Spalte Institution enthalten.';
+$string['sucesfulldeletedinstitution'] = 'Institution wurde erfolgreich gelöscht.';
 
 // tag templates
 $string['cancel'] = 'Abbrechen';

@@ -33,7 +33,7 @@ $PAGE->set_title(get_string("importcsvtitle", "booking"));
 $PAGE->set_heading($course->fullname);
 $PAGE->set_pagelayout('standard');
 
-$mform = new importoptions_form($url);
+$mform = new institutioncsv_form($url);
 
 $completion = new completion_info($course);
 
@@ -44,9 +44,9 @@ if ($mform->is_cancelled()) {
     die;
 } else if ($fromform = $mform->get_data()) {
 
-    $csvfile = $mform->get_file_content('csvfile');
+    $institutioncsvfile = $mform->get_file_content('institutioncsvfile');
 
-    $lines = explode(PHP_EOL, $csvfile);
+    $lines = explode(PHP_EOL, $institutioncsvfile);
     $csvArr = array();
     foreach ($lines as $line) {
         $csvArr[] = str_getcsv($line);
@@ -54,7 +54,7 @@ if ($mform->is_cancelled()) {
 
     // Check if CSV is ok
 
-    if ($csvArr[0][0] == 'Institution') {
+    if ($csvArr[0][0] == 'institution') {
         array_shift($csvArr);
         
         foreach ($csvArr as $line) {
