@@ -344,7 +344,7 @@ if (!$download) {
 
     echo $OUTPUT->header();
 
-    echo $OUTPUT->heading($bookingData->option->text, 4, '', '');
+    echo $OUTPUT->heading($bookingData->option->text, 3, '', '');
 
     $urlParamsODS = $urlParams;
     $urlParamsXLS = $urlParams;
@@ -357,14 +357,17 @@ if (!$download) {
     $urlParamsODS['optionid'] = $bookingData->option->id;
     $urlParamsXLS['optionid'] = $bookingData->option->id;
 
+    if (has_capability('mod/booking:updatebooking', context_module::instance($cm->id))) {
     echo html_writer::link(new moodle_url('/mod/booking/editoptions.php', array('id' => $bookingData->option->cmid, 'optionid' => $bookingData->option->id)), get_string('updatebooking', 'booking'), array()) .
     ' | ' .
     html_writer::link(new moodle_url('/mod/booking/report.php', array('id' => $bookingData->option->cmid, 'optionid' => $bookingData->option->id, 'action' => 'deletebookingoption', 'sesskey' => sesskey())), get_string('deletebookingoption', 'booking'), array()) .
-    ' | ' .
-    html_writer::link(new moodle_url('/mod/booking/report.php', $urlParamsODS), get_string('downloadusersforthisoptionods', 'booking'), array()) .
+        ' | ';
+    }
+    if (has_capability('mod/booking:downloadresponses', $context)) {
+        echo html_writer::link(new moodle_url('/mod/booking/report.php', $urlParamsODS), get_string('downloadusersforthisoptionods', 'booking'), array()) .
     ' | ' .
     html_writer::link(new moodle_url('/mod/booking/report.php', $urlParamsXLS), get_string('downloadusersforthisoptionxls', 'booking'), array());
-
+    }
     echo html_writer::link(new moodle_url('/mod/booking/view.php', array('id' => $cm->id)), get_string('gotobooking', 'booking'), array('style' => 'float:right;'));
 
     echo "<br>";
@@ -425,15 +428,19 @@ if (!$download) {
     echo '<h5>' . get_string('bookedusers', 'booking') . '</h5>';
     $tableAllUsers->out(25, true);
 
+    if ($bookingData->option->maxoverbooking > 0) {
     echo '<h5>' . get_string('waitinglistusers', 'booking') . '</h5>';
     $tableUnbookedUsers->out(25, true);
+    }
 
+    if (has_capability('mod/booking:deleteresponses', context_module::instance($cm->id)) || has_capability('mod/booking:communicate', context_module::instance($cm->id))
+       || has_capability('mod/booking:updatebooking', context_module::instance($cm->id)) || booking_check_if_teacher($bookingData->option, $USER)) {
+        echo '<div class="selectbuttons">';
+        echo '<input type="button" id="checkall" value="' . get_string('selectall') . '" /> ';
+        echo '<input type="button" id="checknone" value="' . get_string('deselectall') . '" /> ';
+        echo '</div>';
+    }
 
-    echo '<div class="selectbuttons">';
-    echo '<input type="button" id="checkall" value="' . get_string('selectall') . '" /> ';
-    echo '<input type="button" id="checknone" value="' . get_string('deselectall') . '" /> ';
-
-    echo '</div>';
     echo '<div>';
     if (!$bookingData->booking->autoenrol && has_capability('mod/booking:communicate', context_module::instance($cm->id))) {
         if ($bookingData->option->courseid > 0) {
@@ -479,7 +486,7 @@ if (!$download) {
     $onlyOneURL = new moodle_url('/mod/booking/view.php', array('id' => $id, 'optionid' => $optionid, 'action' => 'showonlyone', 'whichview' => 'showonlyone'));
     $onlyOneURL->set_anchor('goenrol');
     echo '<br>' . html_writer::start_span('') . get_string('onlythisbookingurl', 'booking') . ': ' . html_writer::link($onlyOneURL, $onlyOneURL, array()) . html_writer::end_span();
-    echo '<br>' . html_writer::start_span('') . get_string('pollurl', 'booking') . ': ' . html_writer::link($bookingData->option->pollurl, $bookingData->option->pollurl, array()) . ($bookingData->option->pollsend ? ' &#x2713;' : '') . html_writer::end_span();
+    echo '<br>' . html_writer::start_span('') . get_string('pollurl', 'booking') . ': ' . html_writer::link($bookingData->option->pollurl, $bookingData->option->pollurl, array('target' => '_blank')) . ($bookingData->option->pollsend ? ' &#x2713;' : '') . html_writer::end_span();
 
     $PAGE->requires->js_init_call('M.mod_booking.init');
 

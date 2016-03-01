@@ -33,7 +33,7 @@ class mod_booking_renderer extends plugin_renderer_base {
      * @param user_selector_base $potentialuc
      * @return string
      */
-    public function subscriber_selection_form(user_selector_base $existinguc, user_selector_base $potentialuc) {
+    public function subscriber_selection_form(user_selector_base $existinguc, user_selector_base $potentialuc, $optionid, $USER) {
         $output = '';
         $formattributes = array();
         $formattributes['id'] = 'subscriberform';
@@ -49,7 +49,16 @@ class mod_booking_renderer extends plugin_renderer_base {
         $actioncell->text = html_writer::start_tag('div', array());
         $actioncell->text .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'subscribe', 'value' => $this->page->theme->larrow . ' ' . get_string('add'), 'class' => 'actionbutton'));
         $actioncell->text .= html_writer::empty_tag('br', array());
+        
+        //Delete responses is only possible if has_capability mod/booking:deleteresponses or is teacher of this bookingoption 
+        $id = required_param('id', PARAM_INT); // course_module ID
+        $cm = get_coursemodule_from_id('booking', $id, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
+        $bookingoption = new booking_option($id, $optionid);
+        if (has_capability('mod/booking:deleteresponses', $context) || (booking_check_if_teacher($bookingoption->option, $USER))) {
         $actioncell->text .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'unsubscribe', 'value' => $this->page->theme->rarrow . ' ' . get_string('remove'), 'class' => 'actionbutton'));
+        }
+        
         $actioncell->text .= html_writer::end_tag('div', array());
         $actioncell->attributes['class'] = 'actions';
         $potentialcell = new html_table_cell();

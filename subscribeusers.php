@@ -110,8 +110,9 @@ if (!$agree && (!empty($bookingoption->booking->bookingpolicy))) {
         $existingselector->set_potential_users($bookingoption->bookedvisibleusers);
     }
 }
-echo $OUTPUT->header();
 
+echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('booking:subscribeusers', 'booking'), 3, '', '');
 echo  html_writer::tag('div', html_writer::link(new moodle_url('/mod/booking/report.php', array('id' => $cm->id, 'optionid' => $optionid)), get_string('backtoresponses', 'booking') ), array('style' => 'width:100%; font-weight: bold; text-align: right;'));
 
 if ($subscribesuccess || $unsubscribesuccess) {
@@ -123,7 +124,7 @@ if ($subscribesuccess || $unsubscribesuccess) {
     };
 }
 
-echo $bookingoutput->subscriber_selection_form($existingselector, $subscriberselector);
+echo $bookingoutput->subscriber_selection_form($existingselector, $subscriberselector, $optionid, $USER);
 
 echo $OUTPUT->footer();
 ?>
