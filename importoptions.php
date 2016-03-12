@@ -368,7 +368,7 @@ if ($mform->is_cancelled()) {
                         } else if ($name == 'maxanswers') {
                             $bookingObject->maxanswers = $newbooking->maxanswers;
                             $bookingObject->limitanswers = $newbooking->limitanswers;
-                        } else if ($name == 'coursestarttime' || $name == 'courseendtime') {
+                        } else if ($name == 'coursestarttime' || $name == 'courseendtime' || $name == 'bookingopeningtime' || $name == 'bookingclosingtime') {
                             $bookingObject->{$name} = $newbooking->{$name}->getTimestamp();
                         } else {
                             $textfields = array('description', 'notificationtext', 'location', 'institution', 'address', 
