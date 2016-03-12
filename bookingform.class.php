@@ -98,11 +98,13 @@ class mod_booking_bookingform_form extends moodleform {
         $mform->addElement('checkbox', 'restrictanswerperiodstart', get_string('timerestrictstart', 'booking'));
         
         $mform->addElement('date_time_selector', 'bookingopeningtime', get_string("bookingopen", "booking"));
+        $mform->setType('bookingopeningtime', PARAM_INT);
         $mform->disabledIf('bookingopeningtime', 'restrictanswerperiodstart', 'notchecked');
         
          $mform->addElement('checkbox', 'restrictanswerperiodend', get_string('timerestrictend', 'booking'));
 
         $mform->addElement('date_time_selector', 'bookingclosingtime', get_string("bookingclose", "booking"));
+        $mform->setType('bookingclosingtime', PARAM_INT);
         $mform->disabledIf('bookingclosingtime', 'restrictanswerperiodend', 'notchecked');
         
         $timeoptions = array(0 => get_string('showdateandtime', 'booking'),
