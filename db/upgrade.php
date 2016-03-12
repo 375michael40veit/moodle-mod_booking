@@ -1035,6 +1035,19 @@ function xmldb_booking_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2016021000, 'booking');
     }
     
+    if ($oldversion < 2016031200) {
+
+        // Changing type of field points on table booking to number.
+        $table = new xmldb_table('booking_options');
+        $field = new xmldb_field('description', XMLDB_TYPE_TEXT, null, null, null, null, null, 'courseendtime');
+
+        // Launch change of type for field points.
+        $dbman->change_field_type($table, $field);
+
+        // Booking savepoint reached.
+        upgrade_mod_savepoint(true, 2016031200, 'booking');
+    }
+    
     return true;
 }
 

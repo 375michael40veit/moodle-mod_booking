@@ -180,7 +180,7 @@ if ($mform->is_cancelled()) {
                 }
             }
 
-            echo $OUTPUT->box('<h3>' . $newbooking->name . '</h3>');
+            echo $OUTPUT->box('<h3>' . fixEncoding($newbooking->name) . '</h3>');
             
             if (isset($newbooking->bookingopeningtime)) {
                 $newbooking->bookingopeningtime = date_create_from_format("!" . $fromform->dateparseformat, $newbooking->bookingopeningtime);
@@ -371,6 +371,8 @@ if ($mform->is_cancelled()) {
                         } else if ($name == 'coursestarttime' || $name == 'courseendtime') {
                             $bookingObject->{$name} = $newbooking->{$name}->getTimestamp();
                         } else {
+                            $textfields = array('description', 'notificationtext', 'location', 'institution', 'address', 
+                                                'pollurl', 'pollurlteachers', 'completiontext', 'useremail', 'teacheremail');
                             if (in_array($name, $textfields)) {
                                 $bookingObject->{$name} = fixEncoding($newbooking->{$name});
                             } else {

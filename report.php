@@ -534,8 +534,10 @@ if (!$download) {
             $myxls->write_string(0, 7, get_string("firstname"));
             $myxls->write_string(0, 8, get_string("lastname"));
             $myxls->write_string(0, 9, get_string("email"));
-            $myxls->write_string(0, 10, get_string("searchFinished", "booking"));
-            $i = 11;
+            $myxls->write_string(0, 10, get_string("institution", "booking"));
+            $myxls->write_string(0, 11, get_string("department"));
+            $myxls->write_string(0, 12, get_string("searchFinished", "booking"));
+            $i = 13;
         } else {
             $myxls->write_string(0, 0, get_string("optionid", "booking"));
             $myxls->write_string(0, 1, get_string("booking", "booking"));
@@ -543,8 +545,10 @@ if (!$download) {
             $myxls->write_string(0, 3, get_string("firstname"));
             $myxls->write_string(0, 4, get_string("lastname"));
             $myxls->write_string(0, 5, get_string("email"));
-            $myxls->write_string(0, 6, get_string("searchFinished", "booking"));
-            $i = 7;
+            $myxls->write_string(0, 6, get_string("institution", "booking"));
+            $myxls->write_string(0, 7, get_string("department"));
+            $myxls->write_string(0, 8, get_string("searchFinished", "booking"));
+            $i = 9;
         }
         if (!empty($bookingData->booking->conectedbooking)) {
             $myxls->write_string(0, $i++, get_string("connection", "booking"));
@@ -558,6 +562,7 @@ if (!$download) {
                 $myxls->write_string(0, $i++, $profilefield->name);
             }
         }
+        
         $myxls->write_string(0, $i++, get_string("group"));
 /// generate the data for the body of the spreadsheet
         $row = 1;
@@ -609,19 +614,28 @@ if (!$download) {
                     $myxls->write_string($row, 8, $user->lastname, $cellform);
                     $myxls->write_string($row, 9, $user->email, $cellform);
 
+                    if ($institutionname = $DB->get_field('user', 'institution', array('id' => $user->id), NULL, IGNORE_MISSING)) {
+                        $myxls->write_string($row, 10, $institutionname, $cellform);
+                    }
+                    
+                    if ($departmentname = $DB->get_field('user', 'department', array('id' => $user->id), NULL, IGNORE_MISSING)) {
+                    $myxls->write_string($row, 11, $departmentname, $cellform);
+                }
+
                     if ($user->completed == 1) {
                         $user->completed = get_string('yes', 'mod_booking');
                     } else {
                         $user->completed = get_string('no', 'mod_booking');
                     }
-                    $myxls->write_string($row, 10, $user->completed, $cellform);
-                    $i = 11;
+                    $myxls->write_string($row, 12, $user->completed, $cellform);
+                    $i = 13;
                     
+                    if (!empty($bookingData->booking->conectedbooking)) {
                     $connectedoptiontext = '';
-                    if ($connectedform == 1) {
+                        if ($connectedform == 1 && !empty($bookingData->option->conectedoption)) {
                         $connectedoptiontext = booking_get_option_text('booking_options', $bookingData->option->conectedoption);
                         $connectiontype = get_string('connectionauto', 'mod_booking');
-                    } else if (!empty($bookingData->booking->conectedbooking) && $connectedform == 0) {
+                        } else if ($connectedform == 0 && !empty($bookingData->booking->conectedbooking)) {
                         $connectedoptiontext = export_connectmanual($optionid, $user->id);
                         $connectiontype = get_string('connectionmanual', 'mod_booking');
                     } else {
@@ -630,6 +644,7 @@ if (!$download) {
                     }
                     $myxls->write_string($row, $i++, format_string($connectedoptiontext, true));
                     $myxls->write_string($row, $i++, $connectiontype, $cellform);
+                    }
                     
                     if ($DB->get_records_select('user_info_data', 'userid = ' . $user->id, array(), 'fieldid')) {
                         foreach ($userprofilefields as $profilefieldid => $profilefield) {
@@ -681,19 +696,33 @@ if (!$download) {
                 $myxls->write_string($row, 4, $user->lastname, $cellform);
                 $myxls->write_string($row, 5, $user->email, $cellform);
 
+                if ($institutionname = $DB->get_field('user', 'institution', array('id' => $user->id), NULL, IGNORE_MISSING)) {
+                    $myxls->write_string($row, 6, $institutionname, $cellform);
+                }
+                
+                if ($departmentname = $DB->get_field('user', 'department', array('id' => $user->id), NULL, IGNORE_MISSING)) {
+                    $myxls->write_string($row, 7, $departmentname, $cellform);
+                }
+
                 if ($user->completed == 1) {
                     $user->completed = get_string('yes', 'mod_booking');
                 } else {
                     $user->completed = get_string('no', 'mod_booking');
                 }
-                $myxls->write_string($row, 6, $user->completed, $cellform);
-                $i = 7;
+                $myxls->write_string($row, 8, $user->completed, $cellform);
+                $i = 9;
 
+                if ($institutionname = $DB->get_field('user', 'institution', array('id' => $user->id))) {
+                    
+                }
+                
+
+                if (!empty($bookingData->booking->conectedbooking)) {
                 $connectedoptiontext = '';
-                if ($connectedform == 1) {
+                    if ($connectedform == 1 && !empty($bookingData->option->conectedoption)) {
                     $connectedoptiontext = booking_get_option_text('booking_options', $bookingData->option->conectedoption);
                     $connectiontype = get_string('connectionauto', 'mod_booking');
-                } else if (!empty($bookingData->booking->conectedbooking) && $connectedform == 0) {
+                    } else if ($connectedform == 0 && !empty($bookingData->booking->conectedbooking)) {
                     $connectedoptiontext = export_connectmanual($optionid, $user->id);
                     $connectiontype = get_string('connectionmanual', 'mod_booking');
                 } else {
@@ -702,6 +731,7 @@ if (!$download) {
                 }
                 $myxls->write_string($row, $i++, format_string($connectedoptiontext, true));
                 $myxls->write_string($row, $i++, $connectiontype, $cellform);
+                }
 
                 if ($DB->get_records_select('user_info_data', 'userid = ' . $user->id, array(), 'fieldid')) {
                     foreach ($userprofilefields as $profilefieldid => $profilefield) {
