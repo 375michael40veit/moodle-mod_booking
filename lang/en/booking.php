@@ -527,7 +527,7 @@ $string['boupdatenotpossible'] = 'An Update isn\'t possible because the booking 
 Add in this case the booking option ID or delete the raw \'bookingoptionid\'.';
 $string['boupdatesuccessful'] = 'was updated successfully.';
 $string['importoptioncsvfile'] = 'CSV file';
-$string['importoptioncsvfile_help'] = 'The following fields are valid when importing the booking options: <br />
+$string['importoptioncsvfile_help'] = 'The following fields are valid when importing the booking options (file code: ANSI): <br />
 <ul>
 <li>Required field when creating the booking option: name</li>
 <li>Required field when updating the booking option: bookingoptionid</li>

@@ -319,7 +319,7 @@ $string['boupdatenotpossible'] = 'Ein Update ist nicht möglich, weil die Buchun
 nicht eingetragen ist. Ergänzen Sie in diesem Falle die Buchungsoption-ID oder löschen Sie die Spalte \'bookingoptionid\' in der csv-Datei.';
 $string['boupdatesuccessful'] = 'wurde erfolgreich aktualisiert.';
 $string['importoptioncsvfile'] = 'CSV Datei';
-$string['importoptioncsvfile_help'] = 'Folgende Felder sind beim Import der Buchungsoptionen gültig: <br />
+$string['importoptioncsvfile_help'] = 'Folgende Felder sind beim Import der Buchungsoptionen gültig (Datei-Codierung: ANSI): <br />
 <ul>
 <li>Pflichtfeld bei Erstellung der Buchugnsoption: name</li>
 <li>Pflichtfeld bei Aktualisierung der Buchngsoption: bookingoptionid</li>
