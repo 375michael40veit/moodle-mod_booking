@@ -534,7 +534,7 @@ if (!$download) {
             $myxls->write_string(0, 7, get_string("firstname"));
             $myxls->write_string(0, 8, get_string("lastname"));
             $myxls->write_string(0, 9, get_string("email"));
-            $myxls->write_string(0, 10, get_string("institution", "booking"));
+            $myxls->write_string(0, 10, get_string("institution"));
             $myxls->write_string(0, 11, get_string("department"));
             $myxls->write_string(0, 12, get_string("searchFinished", "booking"));
             $i = 13;
@@ -545,7 +545,7 @@ if (!$download) {
             $myxls->write_string(0, 3, get_string("firstname"));
             $myxls->write_string(0, 4, get_string("lastname"));
             $myxls->write_string(0, 5, get_string("email"));
-            $myxls->write_string(0, 6, get_string("institution", "booking"));
+            $myxls->write_string(0, 6, get_string("institution"));
             $myxls->write_string(0, 7, get_string("department"));
             $myxls->write_string(0, 8, get_string("searchFinished", "booking"));
             $i = 9;
