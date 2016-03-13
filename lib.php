@@ -513,20 +513,20 @@ function booking_get_user_status($userid, $optionid, $bookingid, $cmid) {
             $sortedresponses[] = $answer->userid;
         }
         $useridaskey = array_flip($sortedresponses);
-        if ($option->limitanswers) {
-            if (empty($useridaskey[$userid])) {
+        if ($option->limitanswers == 1) {
+            if (!isset($useridaskey[$userid])) {
                 $status = get_string('notbooked', 'booking');
             } else if ($useridaskey[$userid] > $option->maxanswers + $option->maxoverbooking) {
                 $status = "Problem, please contact the admin";
             } elseif (($useridaskey[$userid]) > $option->maxanswers) { // waitspaceavailable
                 $status = get_string('onwaitinglist', 'booking');
-            } elseif ($useridaskey[$userid] <= $option->maxanswers) {
+            } elseif (isset($useridaskey[$userid]) && $useridaskey[$userid] <= $option->maxanswers) {
                 $status = get_string('booked', 'booking');
             } else {
                 $status = get_string('notbooked', 'booking');
             }
         } else {
-            if (!empty($useridaskey[$userid])) {
+            if (isset($useridaskey[$userid]) && $useridaskey[$userid] >= 0) {
                 $status = get_string('booked', 'booking');
             } else {
                 $status = get_string('notbooked', 'booking');
