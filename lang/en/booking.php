@@ -10,6 +10,7 @@ $string['booking:addinstance'] = 'Add new booking';
 $string['booking:choose'] = 'Book';
 $string['booking:subscribeusers'] = 'Make bookings for other users';
 $string['booking:deleteresponses'] = 'Delete responses';
+$string['booking:downloadallresponses'] = 'Download all responses';
 $string['booking:downloadresponses'] = 'Download responses';
 $string['booking:readresponses'] = 'Read responses';
 $string['booking:updatebooking'] = 'Manage booking options';

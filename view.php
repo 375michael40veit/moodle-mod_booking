@@ -286,7 +286,7 @@ echo $OUTPUT->box_end();
 
 
 //download spreadsheet of all users
-if (has_capability('mod/booking:downloadresponses', $context)) {
+if (has_capability('mod/booking:downloadallresponses', $context)) {
     /// Download spreadsheet for all booking options
     echo $html = html_writer::tag('div', get_string('downloadallresponses', 'booking') . ': ', array('style' => 'width:100%; font-weight: bold; text-align: right;'));
     $optionstochoose = array('all' => get_string('allbookingoptions', 'booking'));

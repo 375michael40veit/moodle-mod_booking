@@ -9,6 +9,7 @@ $string['booking'] = 'Buchung';
 $string['booking:addinstance'] = 'Neue Buchung anlegen';
 $string['booking:choose'] = 'Buchen';
 $string['booking:deleteresponses'] = 'Anmeldungen löschen';
+$string['booking:downloadallresponses'] = 'Alle Anmeldungen herunterladen';
 $string['booking:downloadresponses'] = 'Anmeldungen herunterladen';
 $string['booking:readresponses'] = 'Anmeldungen lesen';
 $string['booking:sendpollurl'] = 'Umfragelink senden';

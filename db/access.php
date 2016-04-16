@@ -66,6 +66,14 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
         )
     ),
+    'mod/booking:downloadallresponses' => array(
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => array(
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+        )
+    ),
     'mod/booking:downloadresponses' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
